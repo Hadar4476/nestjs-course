@@ -18,10 +18,19 @@
 
 import { NestFactory } from '@nestjs/core';
 
+// PIPE
+// this class will make sure that the body of the request is valid.
+import { ValidationPipe } from '@nestjs/common';
+
 import { MessagesModule } from './messages/messages.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(MessagesModule);
+
+  // GLOBAL PIPE VALIDATION
+  // this will make sure all the requests are going to be validated.
+  app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(process.env.PORT ?? 3000);
 }
 
