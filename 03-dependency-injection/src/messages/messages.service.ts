@@ -3,6 +3,13 @@ import { MessagesRepository } from './messages.repository';
 
 @Injectable()
 export class MessagesService {
+  // // WITHOUT IoC(BAD PRACTICE)
+  // messagesRepo: MessagesRepository;
+  // constructor(){
+  //   this.messagesRepo = new MessagesRepository();
+  // }
+
+  // WITH IoC(GOOD PRACTICE)
   constructor(public messagesRepo: MessagesRepository) {}
 
   findOne(id: string) {

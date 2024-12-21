@@ -5,6 +5,7 @@ import { MessagesRepository } from './messages.repository';
 
 @Module({
   controllers: [MessagesController],
+  // DEPENDENCY INJECTION
   providers: [MessagesService, MessagesRepository],
 })
 export class MessagesModule {}

@@ -12,6 +12,13 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
+  // // WITHOUT IoC(BAD PRACTICE)
+  // messageService: MessagesService;
+  // constructor(){
+  //   this.messageService = new MessagesService();
+  // }
+
+  // WITH IoC(GOOD PRACTICE)
   constructor(public messagesService: MessagesService) {}
 
   @Get()
