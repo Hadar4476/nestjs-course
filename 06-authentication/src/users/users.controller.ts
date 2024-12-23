@@ -10,11 +10,13 @@ import {
   NotFoundException,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Session,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 
-import { CreateUserDto } from './dtos/create-user.dto';
+import { RegisterUserDto } from './dtos/register-user.dto';
+import { LoginUserDto } from './dtos/login-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 
 import {
@@ -23,17 +25,50 @@ import {
 } from '../interceptors/serialize.interceptor';
 
 import { UserDto } from 'src/users/dtos/user.dto';
+import { AuthService } from './auth.srvice';
 
 @Controller('auth')
 @Serialize(UserDto)
 export class UsersController {
-  constructor(public usersService: UsersService) {}
+  constructor(
+    public usersService: UsersService,
+    private authService: AuthService,
+  ) {}
 
-  @Post('/signup')
-  createUser(@Body() body: CreateUserDto) {
-    console.log({ body });
+  @Get('/colors/:color')
+  setColor(@Param('color') color: string, @Session() session: any) {
+    session.color = color;
+  }
 
-    this.usersService.create(body.email, body.password);
+  @Get('/colors')
+  getColor(@Session() session: any) {
+    return session.color;
+  }
+
+  @Post('/register')
+  async register(@Body() body: RegisterUserDto, @Session() session: any) {
+    const user = await this.authService.register(body.email, body.password);
+
+    session.userId = user.id;
+    return user;
+  }
+
+  @Post('/login')
+  async login(@Body() body: LoginUserDto, @Session() session: any) {
+    const user = await this.authService.login(body.email, body.password);
+
+    session.userId = user.id;
+    return user;
+  }
+
+  @Post('/logout')
+  logout(@Session() session: any) {
+    session.userId = null;
+  }
+
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
   }
 
   @Get('/:id')
