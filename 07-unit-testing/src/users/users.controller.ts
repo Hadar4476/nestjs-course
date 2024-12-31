@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { AuthService } from './auth.srvice';
+import { AuthService } from './auth.service';
 
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
