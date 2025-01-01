@@ -18,10 +18,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   providers: [
     UsersService,
     AuthService,
-    // CONTROLLER SCOPED INTERCEPTOR - for single controller
-    // CurrentUserInterceptor
-
-    // GLOBAL SCOPED INTERCEPTOR - for multiple controllers
     {
       provide: APP_INTERCEPTOR,
       useClass: CurrentUserInterceptor,

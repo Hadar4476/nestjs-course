@@ -26,7 +26,7 @@ import {
   SerializeInterceptor,
 } from '../interceptors/serialize.interceptor';
 
-import { UserDto } from 'src/users/dtos/user.dto';
+import { UserDto } from './dtos/user.dto';
 
 import { CurrentUser } from './decorators/current-user.decorator';
 
@@ -34,12 +34,10 @@ import { User } from './user.entity';
 
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
-// // CONTROLLER SCOPED INTERCEPTOR - for single controller
-// @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     public usersService: UsersService,
@@ -78,17 +76,16 @@ export class UsersController {
   }
 
   @Get('/whoami')
-  // using a guard on /auth/whoami route.
   @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() currentUser: User) {
     return currentUser;
   }
 
   @Get('/:id')
-  findUser(@Param('id') id: string) {
+  async findUser(@Param('id') id: string) {
     console.log('handler is running');
 
-    const user = this.usersService.findOne(+id);
+    const user = await this.usersService.findOne(+id);
 
     if (!user) {
       throw new NotFoundException('User not found');
