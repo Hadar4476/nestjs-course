@@ -1,12 +1,3 @@
-// How to run this test?
-// run "npm run test:watch"
-// press "p" for choosing the file by name.
-// type the name of the file(e.g. auth.service.spec)
-
-// How to improve the performance of tests?
-// in package.json, change "test:watch": "jest --watch" to "test:watch": "jest --watch --maxWorkers=1"
-// restart your test runner in terminal
-
 import { Test } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';

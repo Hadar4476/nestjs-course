@@ -1,9 +1,11 @@
-// Whats in this project?
-// in this project an authentication system is implemented:
-// - hashing user sensetive data for better security.
-// - saving an identifier of a user on a session.
-// - creating a decorator for receiving the current logged in user.
-// - creating a guard to prevent unauthenticated users from reaching certain routes.
+// How to run tests?
+// run "npm run test:watch"
+// press "p" for choosing the file by name.
+// type the name of the file(e.g. auth.service.spec)
+
+// How to improve the performance of tests?
+// in package.json, change "test:watch": "jest --watch" to "test:watch": "jest --watch --maxWorkers=1"
+// restart your test runner in terminal
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
