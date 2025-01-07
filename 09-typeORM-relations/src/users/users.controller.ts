@@ -19,7 +19,9 @@ import { RegisterUserDto } from './dtos/register-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 
-import { Serialize } from '../interceptors/serialize.interceptor';
+import {
+  Serialize,
+} from '../interceptors/serialize.interceptor';
 
 import { UserDto } from './dtos/user.dto';
 
